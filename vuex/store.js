@@ -1,7 +1,7 @@
 // src/store.js
 import { createStore } from 'vuex';
 import { db } from '../firebase/firebase';
-import { getDocs, collection, doc, deleteDoc } from 'firebase/firestore';
+import { getDocs, collection, doc, deleteDoc, addDoc, updateDoc } from 'firebase/firestore';
 
 const store = createStore({
   state() {
@@ -33,19 +33,22 @@ const store = createStore({
       }))
       commit('setItems', items);
     },
-    // async addItem({ commit }, item) {
-    //   // Agregar un elemento a Firebase Firestore
-    //   const docRef = await db.collection('items').add(item);
-    //   commit('addItem', { ...item, id: docRef.id });
-    // },
-    // async updateItem({ commit }, { index, item }) {
-    //   // Actualizar un elemento en Firebase Firestore
-    //   const docRef = await db.collection('items').doc(item.id);
-    //   await docRef.update(item);
-    //   commit('updateItem', { index, newItem: item });
-    // },
+    async addItem({ commit }, item) {
+      console.log(item)
+      const collectionRef = collection(db, 'vue-crud');
+      const docRef = await addDoc(collectionRef, item);
+      // commit('addItem', { ...item, id: docRef.id })  lo dejo para recordarme actualizar mayormente cuando la action se genera en una misma vista 
+    },
+    async updateItem({ commit }, { id, item }) {
+      console.log(item)
+      // Actualizar un elemento en Firebase Firestore
+      const itemRef = doc(db, 'vue-crud', id);
+      await updateDoc(itemRef, item.value);
+      console.log('El elemento ha sido editado correctamente');
+      // commit('updateItem', { index, newItem: item })  lo dejo para recordarme actualizar en este caso al recaagar no necesita el commit 
+
+    },
     async deleteItem({ commit }, { index, id }) {
-      // Eliminar un elemento de Firebase Firestore
       const documentRef = doc(db, 'vue-crud', id);
       await deleteDoc(documentRef);
       commit('deleteItem', index);

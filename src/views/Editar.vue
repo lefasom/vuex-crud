@@ -11,18 +11,19 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router';
 import { db } from '../../firebase/firebase';
 import { getDoc, updateDoc, doc } from 'firebase/firestore';
+import { useStore } from 'vuex';
 export default {
     name: 'editar',
     setup() {
+        const store = useStore();
+
         const route = useRouter();
         const id = route.currentRoute._value.params.itemId;
         const item = ref({ nombre: '', edad: '' });
         const editar = async () => {
             if (item.value) {
                 try {
-                    const itemRef = doc(db, 'vue-crud', id);
-                    await updateDoc(itemRef, item.value);
-                    console.log('El elemento ha sido editado correctamente');
+                    store.dispatch('updateItem', {id, item});
                     route.push('/lista');
                 } catch (error) {
                     console.error('Error al editar el elemento:', error);
@@ -30,7 +31,7 @@ export default {
             }
         }
 
-        onMounted(async () => {
+        onMounted(async () => {// esto por ahora lo dejo aca pero podria ponerlo en el redux osea la store
             try {
                 const docRef = doc(db, 'vue-crud', id);
                 const docSnap = await getDoc(docRef);
