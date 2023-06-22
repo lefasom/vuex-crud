@@ -36,6 +36,8 @@ const store = createStore({
         value: doc.data()
       }))
       commit('setItems', items);
+      commit('setIndividual', []);
+
     },
     async addItem({ commit }, item) {
       console.log(item)
