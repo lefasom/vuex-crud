@@ -1,15 +1,22 @@
 <template>
-    <router-link to="/lista">Ir a la Lista</router-link>
-    <h1>Crear </h1>
-    <input v-on:keyup.enter='add' v-model="item.nombre">
-    <input v-on:keyup.enter='add' v-model="item.edad">
-    <p>{{ personaje }}</p>
-    <button v-on:click="add">agregar</button>
-    <div v-for="(item, index) of lista" :key="index">
+     <div class="text-center">
+      <router-link to="/lista" class="btn btn-primary">Ir a la Lista</router-link>
+      <h1>Crear</h1>
+      <div class="form-group">
+        <input class="form-control" v-on:keyup.enter="add" v-model="item.nombre" placeholder="Nombre">
+      </div>
+      <div class="form-group">
+        <input class="form-control" v-on:keyup.enter="add" v-model="item.edad" placeholder="Edad">
+      </div>
+      <p>{{ personaje }}</p>
+      <button class="btn btn-primary" v-on:click="add">Agregar</button>
+      <div v-for="(item, index) of lista" :key="index" class="mt-3">
         {{ index }} - Nombre: {{ item.nombre }} - Edad: {{ item.edad }}
-        <button v-on:click="eliminar(index)">eliminar</button>
+        <button class="btn btn-danger" v-on:click="eliminar(index)">Eliminar</button>
+      </div>
     </div>
-</template>    
+  </template>
+     
 <script>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router';

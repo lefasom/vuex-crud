@@ -23,9 +23,9 @@ const store = createStore({
     // updateItem(state, { index, newItem }) {
     //   state.items.splice(index, 1, newItem);
     // },
-    // deleteItem(state, index) {
-    //   state.items.splice(index, 1);
-    // }
+    deleteItem(state, index) {
+      state.items.splice(index, 1);
+    }
   },
   actions: {
     async fetchItems({ commit }) {

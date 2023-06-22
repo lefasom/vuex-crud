@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <Img :imageUrl="imageUrl" />
-    <h1>Home</h1>
-    <router-link to="/lista">Lista</router-link>
-
+  <div class="text-center">
+    <img :src="imageUrl" class="img-fluid" alt="Imagen" /> <!-- Aplicando clase de Bootstrap "img-fluid" para una imagen responsiva -->
+    <h1 class="mt-3">Home</h1> <!-- Aplicando clase de Bootstrap "mt-3" para un margen superior de tamaño medio -->
+    <router-link to="/lista" class="btn btn-primary">Lista</router-link> <!-- Aplicando clases de Bootstrap para un botón primario -->
   </div>
 </template>
+
   
 <script>
 import { ref } from 'vue'

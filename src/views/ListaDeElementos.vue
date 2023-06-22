@@ -1,25 +1,32 @@
 <template>
-    <router-link to="/">Ir a la Home</router-link>
-    | <router-link to="/crear">Crear</router-link>
-    <h1>Lista</h1>
-    <div v-for="(item, index) of items" :key="index">
-        <table>
+     <div class="text-center">
+      <router-link to="/">Ir a la Home</router-link> |
+      <router-link to="/crear">Crear</router-link>
+      <h1>Lista</h1>
+      <div v-for="(item, index) of items" :key="index">
+        <table class="table table-striped">
+          <thead>
             <tr>
-                <th> Nombre </th>
-                <th> Edad </th>
-                <th> Acciones </th>
+              <th>Nombre</th>
+              <th>Edad</th>
+              <th>Acciones</th>
             </tr>
+          </thead>
+          <tbody>
             <tr>
-                <td> {{ item.value.nombre }}</td>
-                <td> {{ item.value.edad }}</td>
-                <td>
-                    <router-link :to="`/editar/${item.id}`">Editar</router-link>
-                    <button @click="deleteItem(index, item.id)">Eliminar</button>
-                </td>
+              <td>{{ item.value.nombre }}</td>
+              <td>{{ item.value.edad }}</td>
+              <td>
+                <router-link :to="`/editar/${item.id}`" class="btn btn-primary">Editar</router-link>
+                <button @click="deleteItem(index, item.id)" class="btn btn-danger">Eliminar</button>
+              </td>
             </tr>
+          </tbody>
         </table>
+      </div>
     </div>
-</template>
+  </template>
+  
 <style>
 table {
     border-collapse: collapse;
