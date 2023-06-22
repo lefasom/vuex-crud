@@ -34,7 +34,7 @@ const store = createStore({
       items = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         value: doc.data()
-      }))
+      }))k
       commit('setItems', items);
       commit('setIndividual', []);
 
