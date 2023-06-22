@@ -1,12 +1,13 @@
 // src/store.js
 import { createStore } from 'vuex';
 import { db } from '../firebase/firebase';
-import { getDocs, collection, doc, deleteDoc, addDoc, updateDoc } from 'firebase/firestore';
+import { getDocs, collection, doc, deleteDoc, addDoc, updateDoc, getDoc } from 'firebase/firestore';
 
 const store = createStore({
   state() {
     return {
-      items: []
+      items: [],
+      individual: [],
     };
   },
   mutations: {
@@ -16,12 +17,15 @@ const store = createStore({
     addItem(state, item) {
       state.items.push(item);
     },
-    updateItem(state, { index, newItem }) {
-      state.items.splice(index, 1, newItem);
+    setIndividual(state, individual) {
+      state.individual = individual;
     },
-    deleteItem(state, index) {
-      state.items.splice(index, 1);
-    }
+    // updateItem(state, { index, newItem }) {
+    //   state.items.splice(index, 1, newItem);
+    // },
+    // deleteItem(state, index) {
+    //   state.items.splice(index, 1);
+    // }
   },
   actions: {
     async fetchItems({ commit }) {
@@ -52,7 +56,13 @@ const store = createStore({
       const documentRef = doc(db, 'vue-crud', id);
       await deleteDoc(documentRef);
       commit('deleteItem', index);
-    }
+    },
+    async fetchIndividual({ commit }, id) {
+      const docRef = doc(db, 'vue-crud', id);
+      const individual = await getDoc(docRef);
+      // console.log(individual.data())
+      commit('setIndividual', individual.data());
+    },
   }
 });
 

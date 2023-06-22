@@ -34,7 +34,6 @@ td {
 </style>
 <script>
 import { onMounted, computed } from 'vue'
-
 import { useStore } from 'vuex';
 
 export default {
